@@ -1,0 +1,69 @@
+<div class="signup-container">
+    <h2>Sign Up</h2>
+    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+      <label>User Type</label>
+      <select formControlName="userType">
+        <option *ngFor="let type of userTypes" [value]="type">{{ type }}</option>
+      </select>
+  
+      <label>Full Name</label>
+      <input formControlName="fullName" placeholder="Full Name" />
+      <div  class="error"  *ngIf=" signupForm.get('fullName')?.invalid && signupForm.get('fullName')?.touched"  >
+        Full Name is required.
+      </div>
+  
+      <label>Email</label>
+      <input formControlName="email" placeholder="Email" />
+      <div
+        class="error"  *ngIf="signupForm.get('email')?.invalid && signupForm.get('email')?.touched">
+        Valid email is required.
+      </div>
+  
+      <label>Mobile Number</label>
+      <input formControlName="mobileNumber" placeholder="Mobile Number" />
+      <div
+        class="error" *ngIf="signupForm.get('mobileNumber')?.invalid && signupForm.get('mobileNumber')?.touched">
+        Mobile Number is required.
+      </div>
+  
+      <label>Street Number</label>
+      <input formControlName="streetNumber" placeholder="Street Number" />
+      <label>Street Name</label>
+      <input formControlName="streetName" placeholder="Street Name" />
+      <label>City/Suburb</label>
+      <input formControlName="city" placeholder="City or Suburb" />
+      <label>State</label>
+      <input formControlName="state" placeholder="State" />
+      <label>Post Code</label>
+      <input formControlName="postCode" placeholder="Post Code" />
+  
+      <div *ngIf="selectedUserType === 'Provider'">
+        <h3>Company Details (If Provider is Company)</h3>
+  
+        <label>Company Name</label>
+        <input formControlName="companyName" placeholder="Company Name" />
+        <div class="error"  *ngIf="signupForm.get('companyName')?.invalid && signupForm.get('companyName')?.touched ">
+          Company Name is required for providers.
+        </div>
+  
+        <label>Phone Number</label>
+        <input formControlName="phoneNumber" placeholder="Phone Number" />
+  
+        <label>Business Tax Number</label>
+        <input formControlName="businessTaxNumber" placeholder="Business Tax Number" />
+        <div
+          class="error" *ngIf="signupForm.get('businessTaxNumber')?.invalid && signupForm.get('businessTaxNumber')?.touched ">
+          Business Tax Number is required and must be 10 alphanumeric uppercase.
+        </div>
+  
+        <label>Representative Full Name</label>
+        <input formControlName="representativeFullName" placeholder="Representative Name" />
+        <div  class="error" *ngIf="signupForm.get('representativeFullName')?.invalid && signupForm.get('representativeFullName')?.touched">
+          Representative Full Name is required.
+        </div>
+      </div>
+  
+      <button type="submit">Sign Up</button>
+    </form>
+  </div>
+  

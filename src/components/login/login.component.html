@@ -1,0 +1,10 @@
+
+<div class="login-wrapper">
+  <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <h2>Sign in to your account</h2>
+    <input  type="email" placeholder="Email address" formControlName="email" type="email"
+      required autocomplete="email"/>
+    <input type="password" placeholder="Password" formControlName="password" type="password" required autocomplete="current-password"  />
+    <button type="submit">Log In</button>
+  </form>
+</div>

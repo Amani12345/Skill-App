@@ -1,0 +1,59 @@
+<div class="skill-container">
+    <h2>{{ editingSkillId ? 'Update Skill' : 'Add Skill' }}</h2>
+  
+    <form [formGroup]="skillForm" (ngSubmit)="onSubmit()">
+      <label for="category">Category</label>
+      <select formControlName="category" id="category">
+        <option value="" disabled>Select category</option>
+        <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
+      </select>
+      <div *ngIf="skillForm.get('category')?.invalid && skillForm.get('category')?.touched" class="error">
+        Category is required.
+      </div>
+  
+      <label for="experience">Experience</label>
+      <input type="text" id="experience" formControlName="experience"  placeholder="Eg: 3 years" />
+      <div *ngIf="skillForm.get('experience')?.invalid && skillForm.get('experience')?.touched" class="error">
+        Experience is required.
+      </div>
+  
+      <label for="natureOfWork">Nature of Work</label>
+      <select formControlName="natureOfWork" id="natureOfWork">
+        <option value="" disabled>Select nature of work</option>
+        <option value="onsite">Onsite</option>
+        <option value="online">Online</option>
+      </select>
+      <div *ngIf="skillForm.get('natureOfWork')?.invalid && skillForm.get('natureOfWork')?.touched" class="error">
+        Nature of work is required.
+      </div>
+  
+      <label for="hourlyRate">Hourly Rate</label>
+      <input  type="number"  id="hourlyRate"  formControlName="hourlyRate" min="0"  placeholder="Enter hourly rate"/>
+      <div *ngIf="skillForm.get('hourlyRate')?.invalid && skillForm.get('hourlyRate')?.touched" class="error">
+        Hourly rate is required and must be 0 or more.
+      </div>
+  
+      <div class="buttons">
+        <button type="submit">{{ editingSkillId ? 'Update' : 'Add' }} Skill</button>
+        <button type="button" (click)="onCancel()" *ngIf="editingSkillId">Cancel</button>
+      </div>
+    </form>
+  
+    <hr />
+  
+    <h3>Your Skills</h3>
+    <div *ngIf="skills.length === 0">No skills added yet.</div>
+  
+    <ul class="skill-list">
+      <li *ngFor="let skill of skills">
+        <div>
+          <strong>{{ skill.category }}</strong> — {{ skill.experience }} — {{ skill.natureOfWork }} — ${{ skill.hourlyRate }}/hr
+        </div>
+        <div class="actions">
+          <button (click)="onEdit(skill)">Edit</button>
+          <button (click)="onDelete(skill)">Delete</button>
+        </div>
+      </li>
+    </ul>
+  </div>
+  

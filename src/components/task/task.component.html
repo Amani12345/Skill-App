@@ -1,0 +1,78 @@
+<div class="task-container">
+    <h2>{{ editingTaskId ? 'Update Task' : 'Add Task' }}</h2>
+  
+    <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+      <label for="category">Category</label>
+      <select formControlName="category" id="category">
+        <option value="" disabled>Select category</option>
+        <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
+      </select>
+      <div *ngIf="taskForm.get('category')?.invalid && taskForm.get('category')?.touched" class="error">
+        Category is required.
+      </div>
+  
+      <label for="taskName">Task Name</label>
+      <input type="text" id="taskName" formControlName="taskName" placeholder="Task name" />
+      <div *ngIf="taskForm.get('taskName')?.invalid && taskForm.get('taskName')?.touched" class="error">
+        Task name is required (min 3 chars).
+      </div>
+  
+      <label for="description">Description</label>
+      <textarea id="description" formControlName="description" rows="4" placeholder="Task description"></textarea>
+      <div *ngIf="taskForm.get('description')?.invalid && taskForm.get('description')?.touched" class="error">
+        Description is required (min 10 chars).
+      </div>
+  
+      <label for="expectedStartDate">Expected Start Date</label>
+      <input type="date" id="expectedStartDate" formControlName="expectedStartDate" />
+      <div *ngIf="taskForm.get('expectedStartDate')?.invalid && taskForm.get('expectedStartDate')?.touched" class="error">
+        Expected start date is required.
+      </div>
+  
+      <label for="expectedWorkingHours">Expected Working Hours</label>
+      <input type="number"  id="expectedWorkingHours"  formControlName="expectedWorkingHours"  min="1"  placeholder="Number of hours"  />
+      <div *ngIf="taskForm.get('expectedWorkingHours')?.invalid && taskForm.get('expectedWorkingHours')?.touched" class="error">
+        Expected working hours is required and must be at least 1.
+      </div>
+  
+      <label for="hourlyRate">Hourly Rate Offered</label>
+      <input  type="number"  id="hourlyRate"   formControlName="hourlyRate"  min="0"  placeholder="Hourly rate"
+      />
+      <div *ngIf="taskForm.get('hourlyRate')?.invalid && taskForm.get('hourlyRate')?.touched" class="error">
+        Hourly rate is required and must be 0 or more.
+      </div>
+  
+      <label for="rateCurrency">Rate Currency</label>
+      <select formControlName="rateCurrency" id="rateCurrency">
+        <option value="" disabled>Select currency</option>
+        <option *ngFor="let curr of currencies" [value]="curr">{{ curr }}</option>
+      </select>
+      <div *ngIf="taskForm.get('rateCurrency')?.invalid && taskForm.get('rateCurrency')?.touched" class="error">
+        Currency is required.
+      </div>
+  
+      <div class="buttons">
+        <button type="submit">{{ editingTaskId ? 'Update' : 'Add' }} Task</button>
+        <button type="button" (click)="onCancel()" *ngIf="editingTaskId">Cancel</button>
+      </div>
+    </form>
+  
+    <hr />
+  
+    <h3>Your Tasks</h3>
+    <div *ngIf="tasks.length === 0">No tasks added yet.</div>
+  
+    <ul class="task-list">
+      <li *ngFor="let task of tasks">
+        <div>
+          <strong>{{ task.taskName }}</strong> — {{ task.category }} — Starts: {{ task.expectedStartDate | date:'mediumDate' }} — 
+          {{ task.expectedWorkingHours }} hrs — {{ task.rateCurrency }} ${{ task.hourlyRate }}/hr
+        </div>
+        <div class="actions">
+          <button (click)="onEdit(task)">Edit</button>
+          <button (click)="onDelete(task)">Delete</button>
+        </div>
+      </li>
+    </ul>
+  </div>
+  

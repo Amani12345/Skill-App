@@ -1,0 +1,18 @@
+<div class="offer-response-container">
+    <h3>Respond to Offer</h3>
+    <form [formGroup]="offerForm" (ngSubmit)="submitForm()">
+      <label for="offerId">Offer ID:</label>
+      <input id="offerId" formControlName="offerId" placeholder="Enter Offer ID" />
+  
+      <label for="action">Action:</label>
+      <select id="action" formControlName="action">
+        <option value="accept">Accept</option>
+        <option value="reject">Reject</option>
+      </select>
+  
+      <button type="submit">Submit</button>
+    </form>
+  
+    <p class="result">{{ resultMessage }}</p>
+  </div>
+  
